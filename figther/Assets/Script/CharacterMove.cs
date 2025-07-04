@@ -11,6 +11,10 @@ public class CharacterMove : MonoBehaviour
 
     public bool faceingRight;
 
+    public float jumpForce;
+    public bool isGrounded;
+    public bool canDoubleJump;
+
 
     void Start()
     {
@@ -26,6 +30,9 @@ public class CharacterMove : MonoBehaviour
     {
         CharacterMovement();
         CharacterAnimation();
+        CharacterAttack();
+        CharacterRunAttack();
+        CharacterJump();
     }
     void CharacterMovement()
     {
@@ -66,7 +73,68 @@ public class CharacterMove : MonoBehaviour
         transform.localScale = Scaler;
     }
 
+    void CharacterAttack()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && moveHorizontal==0)
+        {
+            anim.SetTrigger("isAttack");
+        }
+    }
+    void CharacterRunAttack()
+    {
+        if(Input.GetKeyDown(KeyCode.E) && moveHorizontal>0 ||  Input.GetKeyDown(KeyCode.E) && moveHorizontal<0)
+        {
+            anim.SetTrigger("isRunAttack");
+        }
+    }
+    void CharacterJump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            anim.SetBool("isJumping",true);
 
+            if (isGrounded)
+            {
+                rb2d.linearVelocity = Vector2.up * jumpForce;
+                canDoubleJump = true;
+            }
+
+            else if(canDoubleJump)
+            {
+                jumpForce=jumpForce/1.5f;
+                rb2d.linearVelocity = Vector2.up * jumpForce;
+
+                canDoubleJump = false;
+                jumpForce = jumpForce * 1.5f;
+            }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        anim.SetBool("isJumping", false);
+
+        if (collision.gameObject.tag=="Grounded")
+        {
+            isGrounded = true;
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        anim.SetBool("isJumping", false);
+        if (collision.gameObject.tag=="Grounded")
+        {
+            isGrounded = true;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        anim.SetBool("isJumping", true);
+        if (collision.gameObject.tag=="Grounded")
+        {
+            isGrounded = false;
+        }
+    }
 
 
 }

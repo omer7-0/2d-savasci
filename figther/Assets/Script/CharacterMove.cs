@@ -84,6 +84,7 @@ public class CharacterMove : MonoBehaviour
         {
             anim.SetTrigger("isAttack");
             playercombat.DamageEnemy();
+            FindFirstObjectByType<AudioManager>().Play("swordsound1");
         }
     }
     void CharacterRunAttack()
@@ -92,6 +93,7 @@ public class CharacterMove : MonoBehaviour
         {
             anim.SetTrigger("isRunAttack");
             playercombat.DamageEnemy();
+            FindFirstObjectByType<AudioManager>().Play("swordsound1");
         }
     }
     void CharacterJump()

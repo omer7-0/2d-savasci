@@ -19,6 +19,8 @@ public class PlayerCombat : MonoBehaviour
            //  Debug.Log("Zarar" + enemy.name);
 
             enemy.GetComponent<Enemy>().TakeDamege(attackDamage);
+            FindFirstObjectByType<AudioManager>().Play("swordsound2");
+            FindFirstObjectByType<AudioManager>().Play("enemyhurt");
         }
     }
 

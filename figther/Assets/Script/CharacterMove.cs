@@ -86,10 +86,11 @@ public class CharacterMove : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && moveHorizontal==0)
         {
-            anim.SetTrigger("isAttack");
+         
 
             if (characterattack)
             {
+                anim.SetTrigger("isAttack");
                 playercombat.DamageEnemy();
                 characterattack = false;
             }
@@ -101,9 +102,10 @@ public class CharacterMove : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E) && moveHorizontal>0 ||  Input.GetKeyDown(KeyCode.E) && moveHorizontal<0)
         {
-            anim.SetTrigger("isRunAttack");
+           
             if (characterattack)
             {
+                anim.SetTrigger("isRunAttack");
                 playercombat.DamageEnemy();
                 characterattack = false;
             }

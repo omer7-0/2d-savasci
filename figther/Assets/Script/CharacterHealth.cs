@@ -9,11 +9,15 @@ public class CharacterHealth : MonoBehaviour
     public bool enemyattack;
 
     public float enemytimer;
+
+    public Animator anim;
     void Start()
     {
         currentHealth = maxHealth;
         enemytimer = 1.5f;
         healthBar.SetMaxHealth(maxHealth);
+
+        anim = GetComponent<Animator>();
 
     }
 
@@ -48,8 +52,22 @@ public class CharacterHealth : MonoBehaviour
         {
             currentHealth -= 20;
             enemyattack = false;
+            anim.SetTrigger("isHurt");
         }
         healthBar.SetHealth(currentHealth);
+
+        if(currentHealth<=0)
+        {
+            currentHealth = 0;
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        anim.SetBool("isDead",true);
+        GetComponent<CharacterMove>().enabled = false;
+        Destroy(gameObject, 2f);
     }
    void Update()
     {

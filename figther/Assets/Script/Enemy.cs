@@ -5,9 +5,11 @@ public class Enemy : MonoBehaviour
     public Animator anim;
     public int maxHealth = 100;
     int currentHealth;
+    EnemyAI enemyai;
     void Start()
     {
         currentHealth = maxHealth;
+        enemyai = GetComponent<EnemyAI>();  
     }
 
     public   void TakeDamege(int damage)
@@ -27,6 +29,7 @@ public class Enemy : MonoBehaviour
 
         this.enabled = false;
         GetComponent<Collider2D>().enabled = false;
+        enemyai.fallowspeed = 0;
         Destroy(gameObject, 2f);
     }
 

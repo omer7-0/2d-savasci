@@ -1,9 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
     public Transform attackPoint;
     public LayerMask enemyLayers;
+
 
     public float attackRange = 0.5f;
     public int attackDamage = 40;

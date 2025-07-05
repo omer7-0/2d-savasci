@@ -15,6 +15,8 @@ public class CharacterMove : MonoBehaviour
     public bool isGrounded;
     public bool canDoubleJump;
 
+    PlayerCombat playercombat;
+
 
     void Start()
     {
@@ -22,6 +24,7 @@ public class CharacterMove : MonoBehaviour
         moveHorizontal = Input.GetAxis("Horizontal");
         anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
+        playercombat = GetComponent<PlayerCombat>();
         
     }
 
@@ -78,6 +81,7 @@ public class CharacterMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && moveHorizontal==0)
         {
             anim.SetTrigger("isAttack");
+            playercombat.DamageEnemy();
         }
     }
     void CharacterRunAttack()
@@ -85,6 +89,7 @@ public class CharacterMove : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E) && moveHorizontal>0 ||  Input.GetKeyDown(KeyCode.E) && moveHorizontal<0)
         {
             anim.SetTrigger("isRunAttack");
+            playercombat.DamageEnemy();
         }
     }
     void CharacterJump()

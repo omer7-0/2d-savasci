@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
         enemyai = GetComponent<EnemyAI>();  
     }
 
-    public   void TakeDamege(int damage)
+    public   void TakeDamage(int damage)
     {
         currentHealth -= damage;
         anim.SetTrigger("Hurt");

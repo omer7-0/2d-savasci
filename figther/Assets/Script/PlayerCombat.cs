@@ -18,7 +18,7 @@ public class PlayerCombat : MonoBehaviour
         {
            //  Debug.Log("Zarar" + enemy.name);
 
-            enemy.GetComponent<Enemy>().TakeDamege(attackDamage);
+            enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
             FindFirstObjectByType<AudioManager>().Play("swordsound2");
             FindFirstObjectByType<AudioManager>().Play("enemyhurt");
         }
@@ -32,14 +32,5 @@ public class PlayerCombat : MonoBehaviour
         }
         Gizmos.DrawWireSphere(attackPoint.position,attackRange);
     }
-    void Start()
-    {
-        
-    }
-
     
-    void Update()
-    {
-        
-    }
 }

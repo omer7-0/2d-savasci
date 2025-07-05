@@ -9,7 +9,8 @@ public class EnemyAI : MonoBehaviour
     private float oldPosition;
 
     public float distance;
-    
+
+    EnemyCombat enemycombat;
 
     private Transform target;
     private Animator anim;
@@ -20,6 +21,7 @@ public class EnemyAI : MonoBehaviour
 
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         anim = GetComponent<Animator>();
+        enemycombat = GetComponent<EnemyCombat>();
     }
 
    
@@ -55,6 +57,7 @@ public class EnemyAI : MonoBehaviour
             anim.SetBool("Attack", true);
             EnemyFallow();
 
+            enemycombat.DamagePlayer();
         }
         else
         {

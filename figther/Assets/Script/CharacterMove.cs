@@ -19,6 +19,9 @@ public class CharacterMove : MonoBehaviour
 
     PlayerCombat playercombat;
 
+    public bool characterattack;
+    public float charactertimer;
+
 
     void Start()
     {
@@ -27,10 +30,10 @@ public class CharacterMove : MonoBehaviour
         anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
         playercombat = GetComponent<PlayerCombat>();
-        
+        charactertimer = 1f;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         CharacterMovement();
@@ -38,6 +41,7 @@ public class CharacterMove : MonoBehaviour
         CharacterAttack();
         CharacterRunAttack();
         CharacterJump();
+        CharacterAttackSpacing();
     }
     void CharacterMovement()
     {
@@ -83,7 +87,13 @@ public class CharacterMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && moveHorizontal==0)
         {
             anim.SetTrigger("isAttack");
-            playercombat.DamageEnemy();
+
+            if (characterattack)
+            {
+                playercombat.DamageEnemy();
+                characterattack = false;
+            }
+          
             FindFirstObjectByType<AudioManager>().Play("swordsound1");
         }
     }
@@ -92,7 +102,12 @@ public class CharacterMove : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E) && moveHorizontal>0 ||  Input.GetKeyDown(KeyCode.E) && moveHorizontal<0)
         {
             anim.SetTrigger("isRunAttack");
-            playercombat.DamageEnemy();
+            if (characterattack)
+            {
+                playercombat.DamageEnemy();
+                characterattack = false;
+            }
+
             FindFirstObjectByType<AudioManager>().Play("swordsound1");
         }
     }
@@ -116,6 +131,23 @@ public class CharacterMove : MonoBehaviour
                 canDoubleJump = false;
                 jumpForce = jumpForce * 1.5f;
             }
+        }
+    }
+
+    void CharacterAttackSpacing()
+    {
+        if (characterattack==false)
+        {
+            charactertimer -= Time.deltaTime;
+        }
+        if (charactertimer<0)
+        {
+            charactertimer = 0f;
+        }
+        if (charactertimer==0f)
+        {
+            characterattack = true;
+            charactertimer = 1f;
         }
     }
 
